@@ -1,0 +1,62 @@
+#!/bin/zsh
+
+BUILD_TYPE="d"
+KEEP_BUILD=true
+
+showHelp() {
+	echo "Usage: $0 -b <build_type> [-d] [-h]"
+	echo "  -b: Build type (d for Debug, r for Release, rd for RelWithDebInfo) (default: Debug)"
+	echo "  -d: Delete the build directory (optional)"
+	echo "  -h: Show this help message"
+	exit 0
+}
+
+while getopts ":b:dh" opt; do
+	case "$opt" in
+	b)
+		BUILD_TYPE="$OPTARG"
+		;;
+	d)
+		KEEP_BUILD=false
+		;;
+	h)
+		showHelp
+		;;
+	*)
+		echo "Invalid option: -$OPTARG"
+		showHelp
+		;;
+	esac
+done
+
+case "$BUILD_TYPE" in
+d)
+	BUILD_TYPE="Debug"
+	;;
+r)
+	BUILD_TYPE="Release"
+	;;
+rd)
+	BUILD_TYPE="RelWithDebInfo"
+	;;
+*)
+	echo "Invalid build type. Use d (Debug), r (Release), or rd (RelWithDebInfo)"
+	exit 1
+	;;
+esac
+
+echo "Build type: $BUILD_TYPE"
+echo
+
+SRC_DIR="/app/"
+BUILD_DIR="/app/build/"
+
+[[ "$KEEP_BUILD" == false && -d "$BUILD_DIR" ]] && rm -rf "$BUILD_DIR"
+mkdir -p "$BUILD_DIR"
+cd "$BUILD_DIR" || {
+	echo "$BUILD_DIR does not exist"
+	exit 1
+}
+
+cmake -G "Unix Makefiles" -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE="$BUILD_TYPE" "$SRC_DIR"
+cmake --build . -j

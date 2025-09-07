@@ -1,0 +1,21 @@
+services:
+  viz-dev:
+    image: viz-dev:latest
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    pull_policy: build
+    container_name: viz-dev-container
+    environment:
+      - HOSTNAME=viz-dev-container
+    volumes:
+      - .:/app
+      - deps:/opt/deps
+      - conan_deps:/root/.conan2
+    working_dir: /app
+    tty: true
+    stdin_open: true
+
+volumes:
+  deps:
+  conan_deps:
