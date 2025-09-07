@@ -2,8 +2,6 @@
 
 set -eu
 
-conan profile detect --force
-
 cat >>/root/.zshrc <<'EOF'
 
 export PATH="/opt/deps/gcc/bin:/opt/deps/cmake/bin:$PATH"

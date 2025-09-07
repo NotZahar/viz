@@ -11,9 +11,19 @@ already_in_container() {
 	return 1
 }
 
+is_container_running() {
+	docker ps --filter "name=$CONTAINER_NAME" --filter "status=running" | grep $CONTAINER_NAME >/dev/null
+
+	return $?
+}
+
 if already_in_container; then
 	echo "Already in container"
 else
-	docker compose up -d "$IMAGE_NAME"
-	docker exec -it "$CONTAINER_NAME" /bin/zsh
+	if is_container_running; then
+		docker exec -it $CONTAINER_NAME /bin/zsh
+	else
+		docker compose up -d $IMAGE_NAME
+		docker exec -it $CONTAINER_NAME /bin/zsh
+	fi
 fi

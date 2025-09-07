@@ -10,8 +10,10 @@ WORKDIR /app
 COPY . .
 
 RUN ./docker/install_deps.sh
-RUN ./docker/configure_zsh.sh
-RUN ./docker/setup_tools.sh
+RUN ./docker/setup_locale.sh
+RUN ./docker/setup_conan.sh
+RUN ./docker/setup_zsh.sh
+RUN ./docker/setup_build_tools.sh
 
 ENV SHELL=/bin/zsh
 

@@ -1,4 +1,9 @@
-#!/bin/zsh
+#!/bin/bash
+
+set -eu
+
+RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+chsh -s $(which zsh) || true
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
