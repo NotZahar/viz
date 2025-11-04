@@ -2,8 +2,11 @@
 
 set -eu
 
-DEPS=(
+DEPENDENCIES=(
 	"locales"
+	"lsb-release"
+	"software-properties-common"
+	"gnupg"
 	"zsh"
 	"vim"
 	"curl"
@@ -14,6 +17,7 @@ DEPS=(
 	"python3-pip"
 	"python3-venv"
 	"pipx"
+	"ninja-build"
 	"libfontconfig1-dev"
 	"libfreetype6-dev"
 	"libx11-dev"
@@ -47,8 +51,12 @@ DEPS=(
 )
 
 apt update
-for package in "${DEPS[@]}"; do
+for package in "${DEPENDENCIES[@]}"; do
 	apt install -y "$package"
 done
 
 rm -rf /var/lib/apt/lists/*
+
+wget https://apt.llvm.org/llvm.sh
+chmod +x llvm.sh
+./llvm.sh 20 all

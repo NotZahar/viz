@@ -4,18 +4,17 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    pull_policy: build
+    pull_policy: missing
     container_name: viz-dev-container
     environment:
       - HOSTNAME=viz-dev-container
     volumes:
       - .:/app
-      - deps:/opt/deps
-      - conan_deps:/root/.conan2
+      - dependencies:/opt/dependencies
     working_dir: /app
     tty: true
     stdin_open: true
 
 volumes:
-  deps:
-  conan_deps:
+  dependencies:
+    name: viz-dependencies
