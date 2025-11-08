@@ -4,22 +4,27 @@ set -eu
 
 BUILD_TYPE="d"
 KEEP_BUILD=true
+VERBOSE=false
 
 showHelp() {
-	echo "Usage: $0 -b <build_type> [-d] [-h]"
+	echo "Usage: $0 -b <build_type> [-d] [-v] [-h]"
 	echo "  -b: Build type (d for Debug, r for Release, rd for RelWithDebInfo) (default: Debug)"
 	echo "  -d: Delete the build directory (optional)"
+	echo "  -v: Enable verbose build output (optional)"
 	echo "  -h: Show this help message"
 	exit 0
 }
 
-while getopts ":b:dh" opt; do
+while getopts ":b:dhv" opt; do
 	case "$opt" in
 	b)
 		BUILD_TYPE="$OPTARG"
 		;;
 	d)
 		KEEP_BUILD=false
+		;;
+	v)
+		VERBOSE=true
 		;;
 	h)
 		showHelp
@@ -60,5 +65,10 @@ cd "$BUILD_DIR" || {
 	exit 1
 }
 
+VERBOSE_FLAG=""
+if [[ "$VERBOSE" == true ]]; then
+	VERBOSE_FLAG="--verbose"
+fi
+
 cmake -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE="$BUILD_TYPE" "$SRC_DIR"
-cmake --build . -j
+cmake --build . $VERBOSE_FLAG -j
