@@ -2,7 +2,8 @@
 
 set -eu
 
-TMP_DIRECTORY="../../tmp"
+TMP_DIRECTORY="/app/tmp"
+BUILD_DIRECTORY="$TMP_DIRECTORY/cmake-$CMAKE_VERSION"
 INSTALL_DIRECTORY="/opt/dependencies/cmake"
 CMAKE_VERSION="4.1.2"
 
@@ -12,10 +13,10 @@ cd $TMP_DIRECTORY
 wget "https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION.tar.gz"
 tar zvxf "cmake-$CMAKE_VERSION.tar.gz"
 
-cd "cmake-$CMAKE_VERSION"
+cd $BUILD_DIRECTORY
 ./bootstrap --prefix="$INSTALL_DIRECTORY"
 make -j$(nproc)
 make -j$(nproc) install
 
-cd ..
+cd $TMP_DIRECTORY
 rm -rf cmake*

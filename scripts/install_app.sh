@@ -2,7 +2,7 @@
 
 set -eu
 
-BUILD_DIR="/app/build/"
-INSTALL_DIR="/app/install/"
+BUILD_DIRECTORY="/app/build/"
+INSTALL_DIRECTORY="/app/install/"
 
-cmake --install "${BUILD_DIR}" --prefix "${INSTALL_DIR}"
+cmake --install "${BUILD_DIRECTORY}" --prefix "${INSTALL_DIRECTORY}"
