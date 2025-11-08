@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 CONTAINER_NAME="viz-dev-container"
 IMAGE_NAME="viz-dev"
 

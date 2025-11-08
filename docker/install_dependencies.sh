@@ -18,6 +18,7 @@ DEPENDENCIES=(
 	"python3-venv"
 	"pipx"
 	"ninja-build"
+	"libssl-dev"
 	"libfontconfig1-dev"
 	"libfreetype6-dev"
 	"libx11-dev"

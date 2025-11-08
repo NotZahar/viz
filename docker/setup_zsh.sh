@@ -56,6 +56,7 @@ setopt SHARE_HISTORY APPEND_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS
 
 export VK_LAYER_PATH=/usr/share/vulkan/explicit_layer.d
 export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/intel_icd.x86_64.json
+export PATH="$PATH:/opt/dependencies/cmake/bin"
 
 setopt AUTO_CD CORRECT EXTENDED_GLOB
 

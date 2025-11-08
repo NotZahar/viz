@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -eu
+
 BUILD_DIR="/app/build/"
 
 if [ -d "$BUILD_DIR" ]; then

@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -eu
+
 BUILD_TYPE="d"
 KEEP_BUILD=true
 
@@ -58,5 +60,5 @@ cd "$BUILD_DIR" || {
 	exit 1
 }
 
-cmake -G "Unix Makefiles" -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE="$BUILD_TYPE" "$SRC_DIR"
+cmake -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE="$BUILD_TYPE" "$SRC_DIR"
 cmake --build . -j
