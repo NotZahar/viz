@@ -7,5 +7,9 @@ Thumbs.db
 
 .cache/
 
+# build & install artifacts
 build
+install
+
+# aux dirs
 tmp
